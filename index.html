@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Quest Tracker</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" defer integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <div id="navContainer" class="container-fluid">
+        <nav class="navbar navbar-expand">
+            <div class="container-fluid bg-body-tertiary p-1">
+                <a  href="#" class="navbar-brand">Quest Tracker</a>
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a href="#" id="sortIndicator" class="navbar-brand">Sorted by: Default</a></li>
+                    <li class="nav-item"><a type="button" data-bs-toggle="modal" href="#addQuestModal" id="addBtn" class="navbar-brand">Add</a></li>
+                    <li class="nav-item"><a href="#" class="navbar-brand">Filter</a></li>
+                </ul>
+                <div class="modal fade" id="addQuestModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-fullscreen modal-dialog-scrollable">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="addQuestModal">Add Quest</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <table class="table table-striped table-hover">
+                          <thead id="questModalHead">
+                            <tr>
+                              <th style="padding-left: 0;">
+                                <div class="col">
+                                  <input type="text" class="form-control" id="levelSearch" placeholder="Level" style="padding-left: 6px;">
+                                </div>
+                              </th>
+                              <th style="padding-left: 0;">
+                                <div class="col">
+                                  <input type="text" class="form-control" id="nameSearch" placeholder="Name" style="padding-left: 6px;">
+                                </div>
+                              </th>
+                              <th style="padding-left: 0;">
+                                <div class="col">
+                                  <input type="text" class="form-control" id="descriptionSearch" placeholder="Description" style="padding-left: 6px;">
+                                </div>
+                              </th>
+                              <th style="padding-left: 0;">
+                                <div class="col">
+                                  <input type="text" class="form-control" id="zoneSearch" placeholder="Zone" style="padding-left: 6px;">
+                                </div>
+                              </th>
+                              <th style="padding-left: 0;">
+                                <div class="col">
+                                  <input type="text" class="form-control" id="typeSearch" placeholder="Type" style="padding-left: 6px;">
+                                </div>
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody id="questModalBody">
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="confirmQuestBtn" disabled>Confirm</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+            </div>
+        </nav>
+    </div>
+    <div id="mainContainer" class="container-fluid">
+        <h1>Welcome to quest Tracker!</h1>
+        <p>Click "Add" to get started.</p>
+        
+    </div>
+
+    </div>
+
+    
+
+
+  </body>
+</html>
