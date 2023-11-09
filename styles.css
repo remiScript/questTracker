@@ -1,3 +1,126 @@
 * {
     border: 0px solid black;
+    font-family: sans-serif;
+    text-shadow: 2px 1px 4px #000000;
+}
+
+.welcomeImg{
+    filter: blur(18px);
+    -webkit-filter: blur(18px);
+    filter: brightness(50%);
+}
+
+.textUncommon {
+    color: #33ff33;
+}
+
+.textEpic {
+    color: #762caf;
+}
+
+.textCommon {
+    color: #e1e0e1;
+}
+
+.textYellow {
+    color: #ffd200;
+}
+
+.wowButtons {
+    background-color: #630000!important;
+    color: #ffd200!important;
+    border: 1px solid #000;
+    border-radius: 5px;
+    font-weight: bold;
+    box-shadow: 2px 2px 4px black;
+}
+
+.wowButtonColors {
+    background-color: #630000!important;
+    color: #ffd200!important;
+}
+
+.active {
+    background-color: #630000!important;
+    color: #ffd200!important;
+}
+
+.card {
+    box-shadow: 2px 2px 4px black;
+}
+
+.accordion-header-edits {
+    font-weight: bold;
+    background-color: black!important;
+    background-color: #3f0000!important;
+    color: #ffd200!important;
+}
+
+.accordion-item {
+    box-shadow: 2px 2px 4px black;
+}
+
+.accordion-body {
+    background-image: url("images/UI-Background-Marble.PNG");
+    background-repeat: repeat;
+}
+
+.accordion-button:after {
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ffd200'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>") !important;
+  }
+
+  .accordion-button {
+    border-color: black;
+  }
+
+  .accordion-button:focus {
+    box-shadow: 0px 0px 4px black;
+    border-color: black;
+}
+
+.modal-content {
+    background-color: #111;
+}
+
+th {
+    background-color: #111!important;
+}
+
+td {
+    background-color: #111!important;
+}
+
+input {
+    color: #ffd200!important;
+}
+
+::placeholder {
+    color: #ffd200!important;
+    font-weight: bold;
+}
+
+.list-group {
+    box-shadow: 0px 0px 0px black;
+}
+
+.list-group-item {
+    background-color:rgba(0, 0, 0, 0.0)!important;
+    border: none!important;
+    box-shadow: none!important;
+}
+
+.table tbody tr:hover td, .table tbody tr:hover th {
+    
+    color: #ffd200!important;
+}
+
+.table-selected{
+    background-color: #630000!important;
+    color: #ffd200!important;
+    font-weight: bold!important;
+}
+
+.close {
+    color: #ffd200; 
+    opacity: 1;
 }

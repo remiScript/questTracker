@@ -11,8 +11,8 @@ Ironforge
 Players can add their own quests, add tags, and filter the questlog by tags
 
 
-merge populate and populate filtered into one function (too similar to each other)
-remove any existing or complete quests from the quest list that populates in "add quest"
+
+
 add filter and sort buttons near the search
 sort functionality needs to be fixed:
     it should sort whatever is in dom, not refresh whole list
@@ -21,120 +21,32 @@ create mobile view (run SOLID principles against your code!)
 clean up code
 make quantity counters for collection quests
 
-*/
+DONE -> merge populate and populate filtered into one function (too similar to each other)
+DONE -> remove any existing or complete quests from the quest list that populates in "add quest"
 
-// let questBank = { 
-//     'quests':[
-//     {"name": "The Defias Brotherhood", "zone": "Westfall", "type": "Killing Enemies"},
-//     {"name": "Wanted: Hogger", "zone": "Elwynn Forest", "type": "Killing Enemies"},
-//     {"name": "The Jasperlode Mine", "zone": "Elwynn Forest", "type": "Collecting Items"},
-//     {"name": "A Threat Within", "zone": "Stormwind City", "type": "Classes (Warrior)"},
-//     {"name": "Elixirs for the Bladeleafs", "zone": "Teldrassil", "type": "Professions (Alchemy)"},
-//     {"name": "The Barrens Oases", "zone": "The Barrens", "type": "Travel"},
-//     {"name": "Wailing Caverns", "zone": "The Barrens", "type": "Dungeons"},
-//     {"name": "The Deadmines", "zone": "Westfall", "type": "Dungeons"},
-//     {"name": "Ragefire Chasm", "zone": "Orgrimmar", "type": "Dungeons"},
-//     {"name": "WANTED: Lieutenant Fangore", "zone": "Silverpine Forest", "type": "Killing Enemies"},
-//     {"name": "The Fargodeep Mine", "zone": "Elwynn Forest", "type": "Collecting Items"},
-//     {"name": "The Hunter's Path", "zone": "Teldrassil", "type": "Classes (Hunter)"},
-//     {"name": "The Alliance Needs Iron Bars!", "zone": "Ironforge", "type": "Professions (Mining)"},
-//     {"name": "The Glowing Shard", "zone": "Darkshore", "type": "Collecting Items"},
-//     {"name": "The Bloodsail Buccaneers", "zone": "Stranglethorn Vale", "type": "Killing Enemies"},
-//     {"name": "Rellian Greenspyre", "zone": "Darkshore", "type": "Killing Enemies"},
-//     {"name": "Thelsamar Blood Sausages", "zone": "Loch Modan", "type": "Collecting Items"},
-//     {"name": "The Hunter's Charm", "zone": "Teldrassil", "type": "Classes (Hunter)"},
-//     {"name": "Snatch and Grab", "zone": "Westfall", "type": "Collecting Items"},
-//     {"name": "The Battle for Arathi Basin!", "zone": "Arathi Highlands", "type": "PvP"},
-//     {"name": "Wanted: Arnak Grimtotem", "zone": "Thousand Needles", "type": "Killing Enemies"},
-//     {"name": "Deepmoss Spider Eggs", "zone": "Stonetalon Mountains", "type": "Collecting Items"},
-//     {"name": "The Battle for Warsong Gulch!", "zone": "Ashenvale", "type": "PvP"},
-//     {"name": "Blackrock Depths", "zone": "Searing Gorge", "type": "Dungeons"},
-//     {"name": "Araj's Scarab", "zone": "Western Plaguelands", "type": "Killing Enemies"},
-//     {"name": "The Temple of Atal'Hakkar", "zone": "Swamp of Sorrows", "type": "Dungeons"},
-//     {"name": "The Molten Core", "zone": "Blackrock Mountain", "type": "Raids"},
-//     {"name": "Onyxia's Lair", "zone": "Dustwallow Marsh", "type": "Raids"},
-//     {"name": "Azuregos's Magical Ledger", "zone": "Azshara", "type": "Collecting Items"},
-//     {"name": "The Battle of Alterac", "zone": "Alterac Mountains", "type": "PvP"},
-//     {"name": "The Battle for Alterac Valley", "zone": "Alterac Valley", "type": "PvP"},
-//     {"name": "Warsong Gulch Mark of Honor", "zone": "Warsong Gulch", "type": "PvP"},
-//     {"name": "Master Enchanter", "zone": "Stormwind City", "type": "Professions (Enchanting)"},
-//     {"name": "Bijou's Reconnaissance Report", "zone": "Feralas", "type": "Collecting Items"},
-//     {"name": "Job Opening: Guard Captain of Revantusk Village", "zone": "The Hinterlands", "type": "Killing Enemies"},
-//     {"name": "Nat Pagle, Angler Extreme", "zone": "Dustwallow Marsh", "type": "Professions (Fishing)"},
-//     {"name": "Ram Riding Harnesses", "zone": "Dun Morogh", "type": "Collecting Items"},
-//     {"name": "A Simple Request", "zone": "Stratholme", "type": "Dungeons"},
-//     {"name": "The Battle of Darrowshire", "zone": "Eastern Plaguelands", "type": "Raids"},
-//     {"name": "The Scarlet Apocalypse", "zone": "Western Plaguelands", "type": "Killing Enemies"},
-//     {"name": "Disharmony of Flame", "zone": "Silithus", "type": "Killing Enemies"},
-//     {"name": "The Heart of Hakkar", "zone": "The Temple of Atal'Hakkar", "type": "Raids"},
-//     {"name": "In Dreams", "zone": "Eastern Plaguelands", "type": "Raids"},
-//     {"name": "The Fall of Ameth'Aran", "zone": "Darkshore", "type": "Killing Enemies"},
-//     {"name": "Rising Threat", "zone": "Un'Goro Crater", "type": "Killing Enemies"},
-//     {"name": "Blasted Lands: The Other Side of the World", "zone": "Blasted Lands", "type": "Travel"},
-//     {"name": "Champion's Battlegear", "zone": "Ironforge", "type": "Professions (Blacksmithing)"},
-//     {"name": "Cryptstalker Armor Doesn't Make Itself... Or Does It?", "zone": "Eastern Plaguelands", "type": "Professions (Leatherworking)"},
-//     {"name": "Signet of the Unseen Path", "zone": "Moonglade", "type": "Collecting Items"},
-//     {"name": "Felnok Steelspring's Report", "zone": "Eastern Plaguelands", "type": "Killing Enemies"},
-//     {"name": "Kodo Roundup", "zone": "Desolace", "type": "Collecting Items"},
-//     {"name": "Taming the Beast", "zone": "Darnassus", "type": "Classes (Hunter)"},
-//     {"name": "Trial of the Sea Lion", "zone": "Auberdine", "type": "Classes (Druid)"},
-//     {"name": "The Elemental Equation", "zone": "Silithus", "type": "Killing Enemies"},
-//     {"name": "Eranikus, Tyrant of the Dream", "zone": "The Temple of Atal'Hakkar", "type": "Raids"},
-//     {"name": "Return to Bodley", "zone": "Eastern Plaguelands", "type": "Killing Enemies"},
-//     {"name": "Kirith", "zone": "Eastern Plaguelands", "type": "Killing Enemies"},
-//     {"name": "Cenarion Aid", "zone": "Silithus", "type": "Killing Enemies"},
-//     {"name": "Timbermaw Ally", "zone": "Winterspring", "type": "Killing Enemies"},
-//     {"name": "A Fair Trade", "zone": "Winterspring", "type": "Collecting Items"},
-//     {"name": "Winterfall Activity", "zone": "Winterspring", "type": "Killing Enemies"},
-//     {"name": "Winterfall E'ko", "zone": "Winterspring", "type": "Collecting Items"},
-//     {"name": "Winterfall Firewater", "zone": "Winterspring", "type": "Collecting Items"},
-//     {"name": "Salve via Hunting", "zone": "Winterspring", "type": "Killing Enemies"},
-//     {"name": "In Pursuit of the Egg", "zone": "Winterspring", "type": "Collecting Items"},
-//     {"name": "Speak to Salfa", "zone": "Winterspring", "type": "Killing Enemies"},
-//     {"name": "Doom Weed", "zone": "Azshara", "type": "Collecting Items"},
-//     {"name": "Pirate Hats Ahoy!", "zone": "Stranglethorn Vale", "type": "Collecting Items"},
-//     {"name": "Friendly Wager", "zone": "Stranglethorn Vale", "type": "PvP"},
-//     {"name": "Arena Master", "zone": "Stranglethorn Vale", "type": "PvP"},
-//     {"name": "A Bijou for Zanza", "zone": "Burning Steppes", "type": "Collecting Items"},
-//     {"name": "A Collection of Heads", "zone": "Burning Steppes", "type": "Killing Enemies"},
-//     {"name": "General Drakkisath's Command", "zone": "Blackrock Spire", "type": "Dungeons"},
-//     {"name": "Great-father Winter is Here!", "zone": "Orgrimmar", "type": "Holiday"},
-//     {"name": "The Feast of Winter Veil", "zone": "Ironforge", "type": "Holiday"},
-//     {"name": "The Gift of the Bronze Dragonflight", "zone": "Silithus", "type": "Holiday"},
-//     {"name": "The Real Threat", "zone": "Orgrimmar", "type": "Killing Enemies"},
-//     {"name": "The Horde Needs Firebloom!", "zone": "Orgrimmar", "type": "Professions (Herbalism)"},
-//     {"name": "The Horde Needs Purple Lotus!", "zone": "Orgrimmar", "type": "Professions (Herbalism)"},
-//     {"name": "The Horde Needs Arthas' Tears!", "zone": "Orgrimmar", "type": "Professions (Herbalism)"},
-//     {"name": "The Horde Needs Dreamfoil!", "zone": "Orgrimmar", "type": "Professions (Herbalism)"},
-//     {"name": "The Horde Needs Firebloom!", "zone": "Orgrimmar", "type": "Professions (Herbalism)"},
-//     {"name": "The Horde Needs Stranglekelp!", "zone": "Orgrimmar", "type": "Professions (Herbalism)"},
-//     {"name": "The Horde Needs Rugged Leather!", "zone": "Orgrimmar", "type": "Professions (Skinning)"},
-//     {"name": "The Horde Needs Thick Leather!", "zone": "Orgrimmar", "type": "Professions (Skinning)"}
-// ], 
-// 'sortedBy': 'default'
-//}
+*/
 
 let questBank = { 
         "quests": [
             {"level": 5, "name": "Lost Tools", "description": "Help the blacksmith find his lost tools in Elwynn Forest.", "zone": "Elwynn Forest", "type": "Collecting Items"},
-            {"level": 6, "name": "Spider Infestation", "description": "Clear out the spider infestation in Northshire Abbey cellar.", "zone": "Elwynn Forest", "type": "Killing Enemies"},
+            {"level": 6, "name": "Spider Infestation", "description": "Clear out the spider infestation in Northshire Abbey cellar.", "zone": "Elwynn Forest", "type": "Combat"},
             {"level": 7, "name": "Restoring the Light", "description": "Help the priest restore the Light to the Darkened Bank in Elwynn Forest.", "zone": "Elwynn Forest", "type": "Recovering Artifacts"},
             {"level": 8, "name": "Wolves at the Gates", "description": "Protect the farmers from wolf attacks in Elwynn Forest.", "zone": "Elwynn Forest", "type": "Defending NPCs"},
             {"level": 9, "name": "The Missing Mallet", "description": "Find the blacksmith's missing mallet in Loch Modan.", "zone": "Loch Modan", "type": "Collecting Items"},
             {"level": 10, "name": "Red Linen Goods", "description": "Collect red linen goods for the tailor in Stormwind City.", "zone": "Stormwind City", "type": "Collecting Items"},
-            {"level": 10, "name": "The Defias Brotherhood", "description": "Defeat the Defias gang members.", "zone": "Westfall", "type": "Killing Enemies"},
+            {"level": 10, "name": "The Defias Brotherhood", "description": "Defeat the Defias gang members.", "zone": "Westfall", "type": "Combat"},
             {"level": 11, "name": "Kobold Candles", "description": "Collect kobold candles for the alchemist in Elwynn Forest.", "zone": "Elwynn Forest", "type": "Collecting Items"},
-            {"level": 12, "name": "Wanted: Hogger", "description": "Eliminate the notorious bandit Hogger.", "zone": "Elwynn Forest", "type": "Killing Enemies"},
+            {"level": 12, "name": "Wanted: Hogger", "description": "Eliminate the notorious bandit Hogger.", "zone": "Elwynn Forest", "type": "Combat"},
             {"level": 12, "name": "Protecting the Herd", "description": "Protect the kodo herd from predators in Northern Barrens.", "zone": "Northern Barrens", "type": "Defending NPCs"},
             {"level": 13, "name": "Cleaning Up the Coastline", "description": "Clean up the coastline from debris in Westfall.", "zone": "Westfall", "type": "Collecting Items"},
-            {"level": 14, "name": "WANTED: Murlocs", "description": "Eliminate the murloc threat near the riverbank in Elwynn Forest.", "zone": "Elwynn Forest", "type": "Killing Enemies"},
+            {"level": 14, "name": "WANTED: Murlocs", "description": "Eliminate the murloc threat near the riverbank in Elwynn Forest.", "zone": "Elwynn Forest", "type": "Combat"},
             {"level": 15, "name": "The Jasperlode Mine", "description": "Collect ore samples from the mine.", "zone": "Elwynn Forest", "type": "Collecting Items"},
             {"level": 15, "name": "A Threat Within", "description": "Investigate and eliminate the internal threat.", "zone": "Stormwind City", "type": "Classes (Warrior)"},
             {"level": 15, "name": "Lost Necklace", "description": "Help the farmer find his lost necklace in Westfall.", "zone": "Westfall", "type": "Recovering Items"},
-            {"level": 16, "name": "Cleaning Up the Mines", "description": "Clear out the vermin from the mine in Loch Modan.", "zone": "Loch Modan", "type": "Killing Enemies"},
+            {"level": 16, "name": "Cleaning Up the Mines", "description": "Clear out the vermin from the mine in Loch Modan.", "zone": "Loch Modan", "type": "Combat"},
             {"level": 17, "name": "Stolen Supplies", "description": "Retrieve the stolen supplies from the bandits in Redridge Mountains.", "zone": "Redridge Mountains", "type": "Collecting Items"},
             {"level": 18, "name": "The Disappearing Farmer", "description": "Investigate the disappearing farmers in Westfall.", "zone": "Westfall", "type": "Investigation"},
-            {"level": 19, "name": "Cleaning Up the Farmlands", "description": "Clean up the farmlands from pests in Westfall.", "zone": "Westfall", "type": "Killing Enemies"},
+            {"level": 19, "name": "Cleaning Up the Farmlands", "description": "Clean up the farmlands from pests in Westfall.", "zone": "Westfall", "type": "Combat"},
             {"level": 20, "name": "The Missing Shipment", "description": "Find the missing shipment of goods in Duskwood.", "zone": "Duskwood", "type": "Investigation"},
             {"level": 20, "name": "Elixirs for the Bladeleafs", "description": "Brew elixirs for the Bladeleafs.", "zone": "Teldrassil", "type": "Professions (Alchemy)"},
             {"level": 21, "name": "The Haunted Mills", "description": "Investigate the haunted mills in Redridge Mountains.", "zone": "Redridge Mountains", "type": "Investigation"},
@@ -142,9 +54,9 @@ let questBank = {
             {"level": 23, "name": "The Stolen Caravan", "description": "Retrieve the stolen caravan in Duskwood.", "zone": "Duskwood", "type": "Rescue Mission"},
             {"level": 24, "name": "The Disappearing Prospector", "description": "Investigate the disappearing prospector in Stranglethorn Vale.", "zone": "Stranglethorn Vale", "type": "Investigation"},
             {"level": 25, "name": "The Barrens Oases", "description": "Explore the oases in The Barrens.", "zone": "The Barrens", "type": "Travel"},
-            {"level": 25, "name": "Rat Infestation", "description": "Clear out the rat infestation in Stormwind City sewers.", "zone": "Stormwind City", "type": "Killing Enemies"},
+            {"level": 25, "name": "Rat Infestation", "description": "Clear out the rat infestation in Stormwind City sewers.", "zone": "Stormwind City", "type": "Combat"},
             {"level": 26, "name": "Forgotten Artifacts", "description": "Recover forgotten artifacts from the ruins in Duskwood.", "zone": "Duskwood", "type": "Recovering Artifacts"},
-            {"level": 27, "name": "Bounty on Gnolls", "description": "Collect bounties on gnolls in Redridge Mountains.", "zone": "Redridge Mountains", "type": "Killing Enemies"},
+            {"level": 27, "name": "Bounty on Gnolls", "description": "Collect bounties on gnolls in Redridge Mountains.", "zone": "Redridge Mountains", "type": "Combat"},
             {"level": 28, "name": "The Missing Diplomat", "description": "Investigate the disappearance of a diplomat in Stormwind City.", "zone": "Stormwind City", "type": "Investigation"},
             {"level": 29, "name": "Protecting the Caravan", "description": "Protect the caravan from bandit attacks in Stranglethorn Vale.", "zone": "Stranglethorn Vale", "type": "Defending NPCs"},
             {"level": 30, "name": "Wailing Caverns", "description": "Explore the Wailing Caverns dungeon.", "zone": "The Barrens", "type": "Dungeons"},
@@ -153,34 +65,34 @@ let questBank = {
             {"level": 30, "name": "The Corrupted Heart", "description": "Retrieve the corrupted heart from the demon in Ashenvale.", "zone": "Ashenvale", "type": "Collecting Items"},
             {"level": 31, "name": "Goblin Trouble", "description": "Solve the goblin trouble in Booty Bay.", "zone": "Stranglethorn Vale", "type": "Investigation"},
             {"level": 32, "name": "The Missing Courier", "description": "Find the missing courier in Hillsbrad Foothills.", "zone": "Hillsbrad Foothills", "type": "Investigation"},
-            {"level": 33, "name": "Pirate Threat", "description": "Eliminate the pirate threat near the coast of Stranglethorn Vale.", "zone": "Stranglethorn Vale", "type": "Killing Enemies"},
+            {"level": 33, "name": "Pirate Threat", "description": "Eliminate the pirate threat near the coast of Stranglethorn Vale.", "zone": "Stranglethorn Vale", "type": "Combat"},
             {"level": 34, "name": "Cultist Conspiracy", "description": "Uncover the cultist conspiracy in Duskwood.", "zone": "Duskwood", "type": "Investigation"},
-            {"level": 35, "name": "WANTED: Lieutenant Fangore", "description": "Hunt down Lieutenant Fangore in Silverpine Forest.", "zone": "Silverpine Forest", "type": "Killing Enemies"},
-            {"level": 35, "name": "The Dark Iron Dwarves", "description": "Defeat the Dark Iron dwarves in the Searing Gorge.", "zone": "Searing Gorge", "type": "Killing Enemies"},
+            {"level": 35, "name": "WANTED: Lieutenant Fangore", "description": "Hunt down Lieutenant Fangore in Silverpine Forest.", "zone": "Silverpine Forest", "type": "Combat"},
+            {"level": 35, "name": "The Dark Iron Dwarves", "description": "Defeat the Dark Iron dwarves in the Searing Gorge.", "zone": "Searing Gorge", "type": "Combat"},
             {"level": 36, "name": "The Missing Journal", "description": "Find the missing journal of an explorer in Stranglethorn Vale.", "zone": "Stranglethorn Vale", "type": "Recovering Items"},
             {"level": 37, "name": "Haunted Ruins", "description": "Investigate the haunted ruins in Arathi Highlands.", "zone": "Arathi Highlands", "type": "Investigation"},
-            {"level": 38, "name": "The Ogre Threat", "description": "Eliminate the ogre threat in Dustwallow Marsh.", "zone": "Dustwallow Marsh", "type": "Killing Enemies"},
+            {"level": 38, "name": "The Ogre Threat", "description": "Eliminate the ogre threat in Dustwallow Marsh.", "zone": "Dustwallow Marsh", "type": "Combat"},
             {"level": 39, "name": "The Missing Alchemist", "description": "Find the missing alchemist in Feralas.", "zone": "Feralas", "type": "Investigation"},
             {"level": 40, "name": "Cursed Artifacts", "description": "Collect cursed artifacts for a researcher in Tanaris.", "zone": "Tanaris", "type": "Collecting Items"},
             {"level": 40, "name": "The Fargodeep Mine", "description": "Collect rare minerals from the Fargodeep Mine in Elwynn Forest.", "zone": "Elwynn Forest", "type": "Collecting Items"},
             {"level": 40, "name": "The Hunter's Path", "description": "Follow the path of the hunter in Teldrassil.", "zone": "Teldrassil", "type": "Classes (Hunter)"},
-            {"level": 41, "name": "The Elemental Menace", "description": "Defeat the elemental menace in Un'Goro Crater.", "zone": "Un'Goro Crater", "type": "Killing Enemies"},
+            {"level": 41, "name": "The Elemental Menace", "description": "Defeat the elemental menace in Un'Goro Crater.", "zone": "Un'Goro Crater", "type": "Combat"},
             {"level": 42, "name": "The Shadowy Figure", "description": "Investigate the shadowy figure in Dustwallow Marsh.", "zone": "Dustwallow Marsh", "type": "Investigation"},
-            {"level": 43, "name": "Giant Problems", "description": "Solve the giant problems in Feralas.", "zone": "Feralas", "type": "Killing Enemies"},
-            {"level": 44, "name": "The Pirate Captain", "description": "Defeat the notorious pirate captain in Tanaris.", "zone": "Tanaris", "type": "Killing Enemies"},
+            {"level": 43, "name": "Giant Problems", "description": "Solve the giant problems in Feralas.", "zone": "Feralas", "type": "Combat"},
+            {"level": 44, "name": "The Pirate Captain", "description": "Defeat the notorious pirate captain in Tanaris.", "zone": "Tanaris", "type": "Combat"},
             {"level": 45, "name": "The Alliance Needs Iron Bars!", "description": "Mine iron bars for the Alliance in Ironforge.", "zone": "Ironforge", "type": "Professions (Mining)"},
             {"level": 50, "name": "The Glowing Shard", "description": "Retrieve a glowing shard from the depths of Darkshore.", "zone": "Darkshore", "type": "Collecting Items"},
-            {"level": 50, "name": "The Bloodsail Buccaneers", "description": "Eliminate the Bloodsail Buccaneers in Stranglethorn Vale.", "zone": "Stranglethorn Vale", "type": "Killing Enemies"},
-            {"level": 55, "name": "Rellian Greenspyre", "description": "Defeat Rellian Greenspyre and his minions in Darkshore.", "zone": "Darkshore", "type": "Killing Enemies"},
+            {"level": 50, "name": "The Bloodsail Buccaneers", "description": "Eliminate the Bloodsail Buccaneers in Stranglethorn Vale.", "zone": "Stranglethorn Vale", "type": "Combat"},
+            {"level": 55, "name": "Rellian Greenspyre", "description": "Defeat Rellian Greenspyre and his minions in Darkshore.", "zone": "Darkshore", "type": "Combat"},
             {"level": 55, "name": "Thelsamar Blood Sausages", "description": "Gather ingredients for Thelsamar Blood Sausages in Loch Modan.", "zone": "Loch Modan", "type": "Collecting Items"},
             {"level": 60, "name": "The Hunter's Charm", "description": "Obtain the Hunter's Charm for tracking beasts in Teldrassil.", "zone": "Teldrassil", "type": "Classes (Hunter)"},
             {"level": 60, "name": "Snatch and Grab", "description": "Retrieve stolen items from the thieves in Westfall.", "zone": "Westfall", "type": "Collecting Items"},
             {"level": 60, "name": "The Battle for Arathi Basin!", "description": "Participate in the battle for Arathi Basin in Arathi Highlands.", "zone": "Arathi Highlands", "type": "PvP"},
-            {"level": 60, "name": "Wanted: Arnak Grimtotem", "description": "Hunt down Arnak Grimtotem in Thousand Needles.", "zone": "Thousand Needles", "type": "Killing Enemies"},
+            {"level": 60, "name": "Wanted: Arnak Grimtotem", "description": "Hunt down Arnak Grimtotem in Thousand Needles.", "zone": "Thousand Needles", "type": "Combat"},
             {"level": 60, "name": "Deepmoss Spider Eggs", "description": "Collect Deepmoss Spider Eggs in Stonetalon Mountains.", "zone": "Stonetalon Mountains", "type": "Collecting Items"},
             {"level": 60, "name": "The Battle for Warsong Gulch!", "description": "Participate in the battle for Warsong Gulch in Ashenvale.", "zone": "Ashenvale", "type": "PvP"},
             {"level": 60, "name": "Blackrock Depths", "description": "Explore the depths of Blackrock Mountain in Searing Gorge.", "zone": "Searing Gorge", "type": "Dungeons"},
-            {"level": 60, "name": "Araj's Scarab", "description": "Defeat Araj and collect his scarab in Western Plaguelands.", "zone": "Western Plaguelands", "type": "Killing Enemies"},
+            {"level": 60, "name": "Araj's Scarab", "description": "Defeat Araj and collect his scarab in Western Plaguelands.", "zone": "Western Plaguelands", "type": "Combat"},
             {"level": 60, "name": "The Temple of Atal'Hakkar", "description": "Explore The Temple of Atal'Hakkar in Swamp of Sorrows.", "zone": "Swamp of Sorrows", "type": "Dungeons"},
             {"level": 60, "name": "The Molten Core", "description": "Raid the Molten Core in Blackrock Mountain.", "zone": "Blackrock Mountain", "type": "Raids"},
             {"level": 60, "name": "Onyxia's Lair", "description": "Raid Onyxia's Lair in Dustwallow Marsh.", "zone": "Dustwallow Marsh", "type": "Raids"},
@@ -190,23 +102,36 @@ let questBank = {
             {"level": 60, "name": "Warsong Gulch Mark of Honor", "description": "Earn the Warsong Gulch Mark of Honor in Warsong Gulch.", "zone": "Warsong Gulch", "type": "PvP"},
             {"level": 60, "name": "Master Enchanter", "description": "Become a Master Enchanter in Stormwind City.", "zone": "Stormwind City", "type": "Professions (Enchanting)"},
             {"level": 60, "name": "Bijou's Reconnaissance Report", "description": "Retrieve Bijou's Reconnaissance Report in Feralas.", "zone": "Feralas", "type": "Collecting Items"},
-            {"level": 60, "name": "Job Opening: Guard Captain of Revantusk Village", "description": "Hunt down the enemies threatening Revantusk Village in The Hinterlands.", "zone": "The Hinterlands", "type": "Killing Enemies"},
+            {"level": 60, "name": "Job Opening: Guard Captain of Revantusk Village", "description": "Hunt down the enemies threatening Revantusk Village in The Hinterlands.", "zone": "The Hinterlands", "type": "Combat"},
             {"level": 60, "name": "Nat Pagle, Angler Extreme", "description": "Complete Nat Pagle's fishing challenges in Dustwallow Marsh.", "zone": "Dustwallow Marsh", "type": "Professions (Fishing)"},
             {"level": 60, "name": "Ram Riding Harnesses", "description": "Collect Ram Riding Harnesses in Dun Morogh.", "zone": "Dun Morogh", "type": "Collecting Items"},
             {"level": 60, "name": "A Simple Request", "description": "Explore Stratholme dungeon in Stratholme.", "zone": "Stratholme", "type": "Dungeons"},
             {"level": 60, "name": "The Battle of Darrowshire", "description": "Participate in the Battle of Darrowshire in Eastern Plaguelands.", "zone": "Eastern Plaguelands", "type": "Raids"},
-            {"level": 60, "name": "The Scarlet Apocalypse", "description": "Eliminate the Scarlet Crusade in Western Plaguelands.", "zone": "Western Plaguelands", "type": "Killing Enemies"},
-            {"level": 60, "name": "Disharmony of Flame", "description": "Defeat the Elemental Firelords in Silithus.", "zone": "Silithus", "type": "Killing Enemies"},
+            {"level": 60, "name": "The Scarlet Apocalypse", "description": "Eliminate the Scarlet Crusade in Western Plaguelands.", "zone": "Western Plaguelands", "type": "Combat"},
+            {"level": 60, "name": "Disharmony of Flame", "description": "Defeat the Elemental Firelords in Silithus.", "zone": "Silithus", "type": "Combat"},
             {"level": 60, "name": "The Heart of Hakkar", "description": "Raid The Temple of Atal'Hakkar and retrieve the Heart of Hakkar in The Temple of Atal'Hakkar.", "zone": "The Temple of Atal'Hakkar", "type": "Raids"},
             {"level": 60, "name": "In Dreams", "description": "Participate in the In Dreams event in Eastern Plaguelands.", "zone": "Eastern Plaguelands", "type": "Raids"},
-            {"level": 60, "name": "The Fall of Ameth'Aran", "description": "Eliminate the corrupted forces in Ameth'Aran in Darkshore.", "zone": "Darkshore", "type": "Killing Enemies"}
+            {"level": 60, "name": "The Fall of Ameth'Aran", "description": "Eliminate the corrupted forces in Ameth'Aran in Darkshore.", "zone": "Darkshore", "type": "Combat"}
         ], 
         'sortedBy': 'default'
     }
 
 
 let playerOne = {
-    'quests': [], 
+    'quests': [
+        {"level": 5, "name": "Lost Tools", "description": "Help the blacksmith find his lost tools in Elwynn Forest.", "zone": "Elwynn Forest", "type": "Collecting Items"},
+            {"level": 6, "name": "Spider Infestation", "description": "Clear out the spider infestation in Northshire Abbey cellar.", "zone": "Elwynn Forest", "type": "Combat"},
+            {"level": 7, "name": "Restoring the Light", "description": "Help the priest restore the Light to the Darkened Bank in Elwynn Forest.", "zone": "Elwynn Forest", "type": "Recovering Artifacts"},
+            {"level": 8, "name": "Wolves at the Gates", "description": "Protect the farmers from wolf attacks in Elwynn Forest.", "zone": "Elwynn Forest", "type": "Defending NPCs"},
+            {"level": 9, "name": "The Missing Mallet", "description": "Find the blacksmith's missing mallet in Loch Modan.", "zone": "Loch Modan", "type": "Collecting Items"},
+            {"level": 10, "name": "Red Linen Goods", "description": "Collect red linen goods for the tailor in Stormwind City.", "zone": "Stormwind City", "type": "Collecting Items"},
+            {"level": 10, "name": "The Defias Brotherhood", "description": "Defeat the Defias gang members.", "zone": "Westfall", "type": "Combat"},
+            {"level": 11, "name": "Kobold Candles", "description": "Collect kobold candles for the alchemist in Elwynn Forest.", "zone": "Elwynn Forest", "type": "Collecting Items"},
+            {"level": 12, "name": "Wanted: Hogger", "description": "Eliminate the notorious bandit Hogger.", "zone": "Elwynn Forest", "type": "Combat"},
+            {"level": 12, "name": "Protecting the Herd", "description": "Protect the kodo herd from predators in Northern Barrens.", "zone": "Northern Barrens", "type": "Defending NPCs"},
+            {"level": 13, "name": "Cleaning Up the Coastline", "description": "Clean up the coastline from debris in Westfall.", "zone": "Westfall", "type": "Collecting Items"},
+            {"level": 14, "name": "WANTED: Murlocs", "description": "Eliminate the murloc threat near the riverbank in Elwynn Forest.", "zone": "Elwynn Forest", "type": "Combat"}
+    ], 
     'sortedBy': "default"
 }
 
@@ -225,7 +150,7 @@ function startUp(){
 function retrieveQuestList(list){
     if(list.sortedBy == 'default'){
         list['quests'].forEach(quest => {
-            console.log(quest.name);
+            //console.log(quest.name);
             }
         )
     } else {
@@ -312,14 +237,21 @@ function reverseSortListBy(list, parameter){
 function questFilter(list, word, parameter){
     //lets create a function that takes 2 arguments, the quest log, and a word
     //it'll return all of the quests that have that word in the zone
-    if (!isNaN(word)){
+    if (!isNaN(word) && word !== ''){
+        //console.log(word + ' is a number.')
         word = +word;
         const results = list.quests.filter((quest) => 
             quest[parameter] >= word - 3 && quest[parameter]<= word + 3);
     return results
     }
+    if (word == ''){
+        const results = list.quests;
+        //console.log(word + " is an empty string.");
+    return results
+    }
     const results = list.quests.filter((quest) => 
         quest[parameter].toLowerCase().includes(word.toLowerCase()));
+        //console.log(word + ' is a word.')
     return results
 }
 
@@ -371,7 +303,7 @@ addQuestBtn.addEventListener('click', function(){
     descriptionSearchInput.value = '';
     zoneSearchInput.value = '';
     typeSearchInput.value = '';  
-    populateQuestTable(questBank)  
+    populateQuestTable(questBank.quests)  
 })
 
 levelSearchInput.addEventListener('input', function(e){
@@ -380,7 +312,7 @@ levelSearchInput.addEventListener('input', function(e){
     descriptionSearchInput.value = '';
     zoneSearchInput.value = '';
     typeSearchInput.value = '';
-    populateFilteredQuestTable(results);
+    populateQuestTable(results);
     return results;
 })
 
@@ -390,7 +322,7 @@ nameSearchInput.addEventListener('input', function(e){
     descriptionSearchInput.value = '';
     zoneSearchInput.value = '';
     typeSearchInput.value = '';
-    populateFilteredQuestTable(results);
+    populateQuestTable(results);
     return results;
 })
 
@@ -400,7 +332,7 @@ descriptionSearchInput.addEventListener('input', function(e){
     nameSearchInput.value = '';
     zoneSearchInput.value = '';
     typeSearchInput.value = '';
-    populateFilteredQuestTable(results);
+    populateQuestTable(results);
     return results;
 })
 
@@ -410,7 +342,7 @@ zoneSearchInput.addEventListener('input', function(e){
     nameSearchInput.value = '';
     descriptionSearchInput.value = '';
     typeSearchInput.value = '';
-    populateFilteredQuestTable(results);
+    populateQuestTable(results);
     return results;
 })
 
@@ -420,7 +352,8 @@ typeSearchInput.addEventListener('input', function(e){
     nameSearchInput.value = '';
     descriptionSearchInput.value = '';
     zoneSearchInput.value = '';
-    populateFilteredQuestTable(results);
+    populateQuestTable(results);
+    console.log(results);
     return results;
 })
 
@@ -449,6 +382,7 @@ function renderQuestList(list, sort){
 
         let zoneButton = document.createElement('button');
         zoneButton.classList.add('accordion-button');
+        zoneButton.classList.add('accordion-header-edits');
         zoneButton.setAttribute("type",'button'); // CHANGED THIS
         zoneButton.setAttribute("data-bs-toggle",'collapse'); // CHANGED THIS
         zoneButton.setAttribute("data-bs-target",`#collapse${zoneIndex}`); // CHANGED THIS
@@ -465,7 +399,27 @@ function renderQuestList(list, sort){
 
         let zoneQuestBody = document.createElement('div');
         zoneQuestBody.classList.add('accordion-body');
+        let zoneQuestBodyRow = document.createElement('div');
+        zoneQuestBodyRow.classList.add('row');
         zoneQuests.appendChild(zoneQuestBody);
+        zoneQuestBody.appendChild(zoneQuestBodyRow);
+
+        let questNamesContainerColumn = document.createElement('div');
+        questNamesContainerColumn.classList.add('col-4');
+        let questNamesContainer = document.createElement('div');
+        questNamesContainerColumn.appendChild(questNamesContainer);
+        questNamesContainer.classList.add('list-group');
+        questNamesContainer.classList.add('questHeaderContainer');
+        questNamesContainer.setAttribute('id', 'list-tab');
+        questNamesContainer.setAttribute('role', 'tablist');
+        zoneQuestBodyRow.appendChild(questNamesContainerColumn);
+
+        let questDetailsContainer = document.createElement('div');
+        questDetailsContainer.classList.add('col-8');
+        questDetailsContainer.classList.add('tab-content');
+        questDetailsContainer.setAttribute('id', 'nav-tabContent')
+        zoneQuestBodyRow.appendChild(questDetailsContainer);
+        
 
 
         
@@ -477,12 +431,48 @@ function renderQuestList(list, sort){
         // check each zone, if any quests match it, create/append a p element
         list.quests.forEach(quest => {
             if(quest[sort] == questCategory){
-                let questTitle = document.createElement('p');
+                let questTitle = document.createElement('div');
+                questTitle.classList.add('fw-bold');
+                questTitle.classList.add('list-group-item');
+                questTitle.classList.add('list-group-item-action');
+                console.log(list.quests.indexOf(quest))
+                questTitle.setAttribute('id', `questNumber${list.quests.indexOf(quest)}ID`);
+                questTitle.setAttribute('type', 'button');
+                questTitle.setAttribute('href', `#questNumber${list.quests.indexOf(quest)}`);
+                questTitle.setAttribute('aria-controls', `questNumber${list.quests.indexOf(quest)}`);
+                questTitle.setAttribute('data-bs-toggle', `list`);
+                questTitle.setAttribute('role', `tab`);
+
+                let questDetails = document.createElement('div');
+                questDetails.classList.add('tab-pane');
+                questDetails.classList.add('fade');
+                questDetails.classList.add('border');
+                questDetails.classList.add('border-white');
+                questDetails.classList.add('rounded');
+                questDetails.setAttribute('id', `questNumber${list.quests.indexOf(quest)}`);
+                questDetails.setAttribute('role', 'tabpanel');
+                questDetails.setAttribute('aria-labelledby', `questNumber${list.quests.indexOf(quest)}`);
+                
                 // questTitle.id = `zone${zoneIndex + 1}Quests`
                 // questTitle.classList.add(`zone${zoneIndex + 1}Quests`);
                 // questTitle.classList.add('collapse');
                 questTitle.innerText = quest.name;
-                zoneQuestBody.appendChild(questTitle);
+                questDetails.innerHTML = `
+                <div class="card" style="width: 100%; margin: auto;">
+                <div class="card-body" style="background-color: #111;">
+                <h5 class="card-title" style="color: #33ff33;">${quest.name}</h5>
+                <p class="card-text">
+                <div class="textYellow">Level: ${quest.level}</div>
+                <div class="textCommon">Description:
+                ${quest.description}</div>
+                <br>
+                <br>
+                <a href="#" class="btn wowButtons">Complete Quest</a>
+                </div>
+                </div>
+                `;
+                questNamesContainer.appendChild(questTitle);    
+                questDetailsContainer.appendChild(questDetails);
 
             }
         })
@@ -501,46 +491,20 @@ function toggleSort(){
 // ------- This creates the questBank table in the "add" modal ----- //
 function populateQuestTable(list){
     questModalBody.innerHTML = '';
-    list['quests'].forEach(quest => {
-        let questRow = document.createElement('tr');
-        questRow.classList.add('questRow');
-        questModalBody.appendChild(questRow);
-
-        let questLevel = document.createElement('td');
-        questLevel.setAttribute('data-key', 'level')
-        questLevel.innerText = quest.level;
-        questRow.appendChild(questLevel);
-
-        let questName = document.createElement('td');
-        questName.setAttribute('data-key', 'name');
-        questName.innerText = quest.name;
-        questRow.appendChild(questName);
-
-        let questDescription = document.createElement('td');
-        questDescription.setAttribute('data-key', 'description');
-        questDescription.innerText = quest.description;
-        questRow.appendChild(questDescription);
-        
-        let questZone = document.createElement('td');
-        questZone.setAttribute('data-key', 'zone');
-        questZone.innerText = quest.zone;
-        questRow.appendChild(questZone);
-
-        let questType = document.createElement('td');
-        questType.setAttribute('data-key', 'type');
-        questType.innerText = quest.type;
-        questRow.append(questType);
-
-    });
-
-}
-
-function populateFilteredQuestTable(list){
-    questModalBody.innerHTML = '';
     list.forEach(quest => {
-        //if (playerOne[quests].includes(quest)){
-        //    console.log(quest.name + " already in log.")
-        //}
+        //console.log(quest);
+        let match = false;
+        playerOne.quests.forEach(p1Quest => {
+            if(p1Quest.name == quest.name) {
+                //console.log(`${quest.name} is a match.`);
+                match = true;
+                return;
+            }
+        })
+        if(match == true) {
+            return
+        }
+
         let questRow = document.createElement('tr');
         questRow.classList.add('questRow');
         questModalBody.appendChild(questRow);
@@ -569,9 +533,51 @@ function populateFilteredQuestTable(list){
         questType.setAttribute('data-key', 'type');
         questType.innerText = quest.type;
         questRow.append(questType);
+
     });
 
 }
+
+// ---------------------------------------------------------------------- //
+// ---------------------------------------------------------------------- //
+// -------VVVVV RETIRED FUNCTION, DELETE IF NOTHING BREAKS VVVVV--------- //
+// function populateFilteredQuestTable(list){
+//     questModalBody.innerHTML = '';
+//     list.forEach(quest => {
+//         let questRow = document.createElement('tr');
+//         questRow.classList.add('questRow');
+//         questModalBody.appendChild(questRow);
+
+//         let questLevel = document.createElement('td');
+//         questLevel.setAttribute('data-key', 'level')
+//         questLevel.innerText = quest.level;
+//         questRow.appendChild(questLevel);
+
+//         let questName = document.createElement('td');
+//         questName.setAttribute('data-key', 'name');
+//         questName.innerText = quest.name;
+//         questRow.appendChild(questName);
+
+//         let questDescription = document.createElement('td');
+//         questDescription.setAttribute('data-key', 'description');
+//         questDescription.innerText = quest.description;
+//         questRow.appendChild(questDescription);
+        
+//         let questZone = document.createElement('td');
+//         questZone.setAttribute('data-key', 'zone');
+//         questZone.innerText = quest.zone;
+//         questRow.appendChild(questZone);
+
+//         let questType = document.createElement('td');
+//         questType.setAttribute('data-key', 'type');
+//         questType.innerText = quest.type;
+//         questRow.append(questType);
+//     });
+
+//}
+// -------^^^^^ RETIRED FUNCTION, DELETE IF NOTHING BREAKS ^^^^^--------- //
+// ---------------------------------------------------------------------- //
+// ---------------------------------------------------------------------- //
 
 function filterQuests(list, parameter, value) {
     const results = list['quests'].filter(quest => 
@@ -621,15 +627,29 @@ questModalBody.addEventListener('click', function(e) {
     getArgs(e);
     confirmQuestBtn.disabled = false;
     removeHighlights();
-    e.target.parentElement.classList.add('table-primary');
+    //e.target.parentElement.classList.add('table-selected');
+    styleQuestRowTD(e.target.parentElement);
 });
 
 // ----- removes highlights from other quests ----- //
 function removeHighlights(){
     let questChildren = Array.from(questModalBody.children);    
-    questChildren.forEach(quest => {
-        quest.classList.remove('table-primary');
-})};
+    questChildren.forEach(questRow => {
+        let questRowChildren = Array.from(questRow.children);
+        questRowChildren.forEach(child => {
+            child.classList.remove('table-selected');
+        }
+        )
+    }
+    )
+};
+
+function styleQuestRowTD(questRow) {
+    let questRowChildren = Array.from(questRow.children);
+    questRowChildren.forEach(child => {
+        child.classList.add('table-selected');        
+    });
+}
 
 // ---- Upon clicking on the "Confirm" button, we add the selected quest to the active -----//
 // ---- player's quest log, re-disable the "Confirm" button, re-render the quest list to the DOM -----//
@@ -640,14 +660,50 @@ confirmQuestBtn.addEventListener('click', function(){
     confirmQuestBtn.disabled = true;
     renderQuestList(playerOne, 'zone');
     removeHighlights();
+
 });
 
 
 let sortButton = document.getElementById('sortIndicator');
 sortButton.addEventListener('click', toggleSort);
 
-
-
+function mobileTuck(){
+    if (window.innerWidth < 768) {
+        mainContainer.classList.add('g-0');
+        let navContainer = document.getElementById('navContainer');
+        navContainer.classList.add('g-0');
+        let splashContainer = document.getElementById('splashContainer');
+        splashContainer.classList.add('g-0');
+        splashContainer.style.marginBottom = '0px';        
+        let splashChildren = [...splashContainer.children];
+        splashChildren.forEach(child => {
+            child.classList.add('rounded-0');
+        });
+        questLogContainer.classList.add('g-0');
+        let questList = [...questLogContainer.children];
+        questList.forEach(quest => {
+            quest.classList.add('rounded-0');
+            
+        });
+    } else {
+        mainContainer.classList.remove('g-0');
+        let navContainer = document.getElementById('navContainer');
+        navContainer.classList.remove('g-0');
+        let splashContainer = document.getElementById('splashContainer');
+        splashContainer.classList.remove('g-0');
+        splashContainer.style.marginBottom = '15px';
+        let splashChildren = [...splashContainer.children];
+        splashChildren.forEach(child => {
+            child.classList.remove('rounded-0');
+        });
+        questLogContainer.classList.remove('g-0');
+        let questList = [...questLogContainer.children];
+        questList.forEach(quest => {
+            quest.classList.remove('rounded-0');
+        });
+    }
+}
+window.addEventListener('resize', mobileTuck);
 
 
 // ------------------------------------------------------------------//
